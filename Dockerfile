@@ -7,6 +7,21 @@ ENV XDG_CONFIG_HOME="/config/deemix/xdg"
 RUN \
 	echo "************ install dependencies ************" && \
 	echo "************ install and upgrade packages ************" && \
+	apk udpate && \
+	apk add --no-cache \
+		curl \
+		jq \
+		flac \
+		opus-tools \
+		ffmpeg \
+		python3 && \
+	echo "************ install python packages ************" && \
+	python3 -m pip install --upgrade pip && \
+	python3 -m pip install --no-cache-dir -U \
+		yq \
+		mutagen \
+		r128gain \
+		deemix && \
 	echo "************ setup dl client config directory ************" && \
 	echo "************ make directory ************" && \
 	mkdir -p "${XDG_CONFIG_HOME}/deemix"
