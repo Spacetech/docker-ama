@@ -7,7 +7,7 @@ ENV XDG_CONFIG_HOME="/config/deemix/xdg"
 RUN \
 	echo "************ install dependencies ************" && \
 	echo "************ install and upgrade packages ************" && \
-	apk udpate && \
+	apk update && \
 	apk add --no-cache \
 		curl \
 		jq \
