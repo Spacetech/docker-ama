@@ -26,8 +26,7 @@ RUN \
 		py3-pip \
 		python3 && \
 	echo "************ install python packages ************" && \
-	python3 -m pip install --upgrade pip && \
-	python3 -m pip install --no-cache-dir -U \
+	pip3 install --no-cache-dir -U \
 		yq \
 		mutagen \
 		r128gain \
