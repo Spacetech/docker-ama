@@ -1,19 +1,29 @@
-FROM lsiobase/alpine
+FROM lsiobase/alpine:3.12
 LABEL maintainer="RandomNinjaAtk"
 
 ENV TITLE="Automated Music Archiver (AMA)"
 ENV VERSION="1.0.0"
 ENV XDG_CONFIG_HOME="/config/deemix/xdg"
 RUN \
+	echo "**** install build packages ****" && \
+	apk add --no-cache --virtual=build-dependencies \
+		gcc \
+		g++ \
+		libffi-dev \
+		python3-dev \
+		git \
+		make && \
 	echo "************ install dependencies ************" && \
 	echo "************ install and upgrade packages ************" && \
 	apk update && \
+	apk upgrade && \
 	apk add --no-cache \
 		curl \
 		jq \
 		flac \
 		opus-tools \
 		ffmpeg \
+		py3-pip \
 		python3 && \
 	echo "************ install python packages ************" && \
 	python3 -m pip install --upgrade pip && \
@@ -24,7 +34,12 @@ RUN \
 		deemix && \
 	echo "************ setup dl client config directory ************" && \
 	echo "************ make directory ************" && \
-	mkdir -p "${XDG_CONFIG_HOME}/deemix"
+	mkdir -p "${XDG_CONFIG_HOME}/deemix" && \
+	echo "************ clean up ************" && \
+	rm -rf \
+		/root/.cache \
+		/tmp/*
+
     
 # copy local files
 COPY root/ /
